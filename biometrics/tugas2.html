@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.3.1/simplex/bootstrap.min.css"> -->
+
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.3.1/cyborg/bootstrap.min.css"> -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.3.1/sketchy/bootstrap.min.css">
+
+    <title>Praktikum Arduino</title>
+</head>
+<body>
+    <div class="container-fluid">
+      <div class="row justify-content-center">
+          <div class="col-11">
+              <h1 class="mt-4 text-center">Fingerprint</h1>
+              <h3>Requirement : </h3>
+              <ul>
+                  <li>Python 2.7</li>
+                  <li>PIL library --pip install pillow</li>
+                  <li>Fingerprint Module : github.com/L200160140/biometrics forked from github.com/L200160090/biometrics</li>
+                  <li>Fingerprint image</li>
+              </ul>
+            
+              <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th scope="col">Original</th>
+                        <th scope="col">Gabor</th>
+                        <th scope="col">Thinning</th>
+                        <th scope="col">Minutiae</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <!-- allpic -->
+                      <tr>
+                        <td scope="row"> <img src="finger.jpeg" alt="original image" style="max-width:17rem;"> </th>
+                        <td scope="row"> <img src="finger_enhanced.png" alt="original image" style="max-width:17rem;"> </th>    
+                        <td scope="row"> <img src="finger_enhanced_thinned.png" alt="original image" style="max-width:17rem;"> </th>
+                        <td scope="row"> <img src="finger_enhanced_thinned_minutiae.png" alt="original image" style="max-width:17rem;"> </th>
+                      </tr>
+                      <!-- alldesc -->
+                      <tr>
+                        <td scope="row">Original</th>
+                        <td>python gabor.py finger.jpeg 16 --save</td>
+                        <td>python thining.py finger_enhanced.gif --save</td>
+                        <td>python crossing_number.py finger_enhanced_thinned.gif --save/td>
+                        
+                      </tr>
+                    </tbody>
+                  </table>
+          </div>
+      </div>
+      
+    </div>
+
+
+
+
+</body>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</html>

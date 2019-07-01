@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.3.1/simplex/bootstrap.min.css"> -->
+
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.3.1/cyborg/bootstrap.min.css"> -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.3.1/sketchy/bootstrap.min.css">
+
+    <title>Ultrasonik Raspberry Pi</title>
+</head>
+<body>
+    <div class="container-fluid">
+      <div class="row justify-content-center">
+          <div class="col-11">
+                <h1 class="mt-4 text-center">Ultrasonik Raspberry Pi</h1>
+
+                <h3>Kode : </h3>
+                    <div class="card border-info mb-3">
+                        <div class="card-body">
+                            <code>
+<!-- HTML generated using hilite.me --><div style="overflow:auto;width:auto;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">
+    <span style="color: #888888">#Libraries</span>
+    <span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">RPi.GPIO</span> <span style="color: #008800; font-weight: bold">as</span> <span style="color: #0e84b5; font-weight: bold">GPIO</span>
+    <span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">time</span>
+     
+    <span style="color: #888888">#GPIO Mode (BOARD / BCM)</span>
+    GPIO<span style="color: #333333">.</span>setmode(GPIO<span style="color: #333333">.</span>BCM)
+     
+    <span style="color: #888888">#set GPIO Pins</span>
+    GPIO_TRIGGER <span style="color: #333333">=</span> <span style="color: #0000DD; font-weight: bold">4</span>
+    GPIO_ECHO <span style="color: #333333">=</span> <span style="color: #0000DD; font-weight: bold">17</span>
+     
+    <span style="color: #888888">#set GPIO direction (IN / OUT)</span>
+    GPIO<span style="color: #333333">.</span>setup(GPIO_TRIGGER, GPIO<span style="color: #333333">.</span>OUT)
+    GPIO<span style="color: #333333">.</span>setup(GPIO_ECHO, GPIO<span style="color: #333333">.</span>IN)
+     
+    <span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">distance</span>():
+        <span style="color: #888888"># set Trigger to HIGH</span>
+        GPIO<span style="color: #333333">.</span>output(GPIO_TRIGGER, <span style="color: #007020">True</span>)
+     
+        <span style="color: #888888"># set Trigger after 0.01ms to LOW</span>
+        time<span style="color: #333333">.</span>sleep(<span style="color: #6600EE; font-weight: bold">0.00001</span>)
+        GPIO<span style="color: #333333">.</span>output(GPIO_TRIGGER, <span style="color: #007020">False</span>)
+     
+        StartTime <span style="color: #333333">=</span> time<span style="color: #333333">.</span>time()
+        StopTime <span style="color: #333333">=</span> time<span style="color: #333333">.</span>time()
+     
+        <span style="color: #888888"># save StartTime</span>
+        <span style="color: #008800; font-weight: bold">while</span> GPIO<span style="color: #333333">.</span>input(GPIO_ECHO) <span style="color: #333333">==</span> <span style="color: #0000DD; font-weight: bold">0</span>:
+            StartTime <span style="color: #333333">=</span> time<span style="color: #333333">.</span>time()
+     
+        <span style="color: #888888"># save time of arrival</span>
+        <span style="color: #008800; font-weight: bold">while</span> GPIO<span style="color: #333333">.</span>input(GPIO_ECHO) <span style="color: #333333">==</span> <span style="color: #0000DD; font-weight: bold">1</span>:
+            StopTime <span style="color: #333333">=</span> time<span style="color: #333333">.</span>time()
+     
+        <span style="color: #888888"># time difference between start and arrival</span>
+        TimeElapsed <span style="color: #333333">=</span> StopTime <span style="color: #333333">-</span> StartTime
+        <span style="color: #888888"># multiply with the sonic speed (34300 cm/s)</span>
+        <span style="color: #888888"># and divide by 2, because there and back</span>
+        distance <span style="color: #333333">=</span> (TimeElapsed <span style="color: #333333">*</span> <span style="color: #0000DD; font-weight: bold">34300</span>) <span style="color: #333333">/</span> <span style="color: #0000DD; font-weight: bold">2</span>
+     
+        <span style="color: #008800; font-weight: bold">return</span> distance
+     
+    <span style="color: #008800; font-weight: bold">if</span> __name__ <span style="color: #333333">==</span> <span style="background-color: #fff0f0">&#39;__main__&#39;</span>:
+        <span style="color: #008800; font-weight: bold">try</span>:
+            <span style="color: #008800; font-weight: bold">while</span> <span style="color: #007020">True</span>:
+                dist <span style="color: #333333">=</span> distance()
+                <span style="color: #008800; font-weight: bold">print</span> (<span style="background-color: #fff0f0">&quot;Jarak = </span><span style="background-color: #eeeeee">%.1f</span><span style="background-color: #fff0f0"> cm&quot;</span> <span style="color: #333333">%</span> dist)
+                time<span style="color: #333333">.</span>sleep(<span style="color: #0000DD; font-weight: bold">1</span>)
+     
+            <span style="color: #888888"># Reset by pressing CTRL + C</span>
+        <span style="color: #008800; font-weight: bold">except</span> <span style="color: #FF0000; font-weight: bold">KeyboardInterrupt</span>:
+            <span style="color: #008800; font-weight: bold">print</span>(<span style="background-color: #fff0f0">&quot;Langkah dihentikan oleh user&quot;</span>)
+            GPIO<span style="color: #333333">.</span>cleanup()
+    </pre></div>
+    
+                            </code>
+                        </div>
+                    </div>
+                <!-- =========================================================================================== -->
+
+          <h2>Hasil :</h2>      
+          <video src="uas.mp4" style="width:50%" height="auto" controls="controls" ></video>
+          </div>
+      </div>
+      
+    </div>
+
+
+
+
+</body>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</html>
